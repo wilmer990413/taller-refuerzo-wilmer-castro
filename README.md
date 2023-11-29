@@ -348,3 +348,229 @@ Al igual que el paso anterior el nombre del proyecto debe ser el mismo que esta 
 npm run deploy
 ```
 
+## **MÓDULO SOBRE REACT JS**
+
+### **1. ¿Qué es React Context y para qué se utiliza en el desarrollo web con React?**
+
+React Context es una característica de React que permite pasar datos a través del árbol de componentes sin tener que pasar props manualmente en cada nivel. Proporciona una forma de compartir valores como temas, preferencias de usuario o información de autenticación con todos los componentes de una aplicación React.
+
+### **2. Describir cómo se crea un contexto en React y cómo se proporciona y consume información a través de él.**
+
+**Creación de un Contexto en React:**
+1. Importar createContext: Primero, debes importar la función createContext de React.
+```bash
+import { createContext } from 'react';
+```
+2. Crear el Contexto: Utiliza createContext para crear un nuevo contexto. Puedes proporcionar un valor inicial opcional.
+```bash
+const MiContexto = createContext();
+```
+Si deseas proporcionar un valor inicial, puedes hacerlo de la siguiente manera:
+```bash
+const MiContexto = createContext('Valor por defecto');
+```
+**Proporcionar Información a través del Contexto:**
+1. Utilizar el Proveedor del Contexto: Alrededor de los componentes que desean consumir el contexto, utiliza el componente Provider del contexto. Este componente acepta un prop llamado value que define el valor que estará disponible para los componentes descendientes.
+```bash
+import React, { createContext, useState } from 'react';
+const MiContexto = createContext();
+const App = () => {
+  const [valor, setValor] = useState('Nuevo valor');
+  return (
+    <MiContexto.Provider value={valor}>
+      {/* Componentes que consumirán el contexto */}
+    </MiContexto.Provider>
+  );
+};
+export default App;
+```
+2. Cambiar el Valor del Contexto: Puedes cambiar dinámicamente el valor del contexto utilizando el estado local o cualquier otra lógica que necesites.
+```bash
+const App = () => {
+  const [valor, setValor] = useState('Nuevo valor');
+  const handleClick = () => {
+    setValor('Otro nuevo valor');
+  };
+  return (
+    <MiContexto.Provider value={valor}>
+      {/* Componentes que consumirán el contexto */}
+      <button onClick={handleClick}>Cambiar Valor</button>
+    </MiContexto.Provider>
+  );
+};
+```
+**Consumir Información a través del Contexto:**
+1. Utilizar useContext: Dentro de los componentes que desean consumir el contexto, utiliza el hook useContext para acceder al valor del contexto.
+```bash
+import React, { useContext } from 'react';
+const ComponenteConsumidor = () => {
+  const valorContexto = useContext(MiContexto);
+  return <p>Valor del contexto: {valorContexto}</p>;
+};
+```
+El componente ComponenteConsumidor ahora tiene acceso al valor del contexto.
+2. Renderizar el Consumidor del Contexto:
+```bash
+const App = () => {
+  const [valor, setValor] = useState('Nuevo valor');
+  return (
+    <MiContexto.Provider value={valor}>
+      <ComponenteConsumidor />
+    </MiContexto.Provider>
+  );
+};
+```
+### **3. ¿Cuál es la ventaja de utilizar React Context en lugar de pasar props a través de múltiples componentes?**
+
+La ventaja más destacada y importante de utilizar React Context en lugar de pasar props a través de múltiples componentes es la reducción de la "prop drilling" o "perforación de propiedades". Prop drilling es el proceso de pasar datos a través de múltiples niveles de componentes como props, incluso cuando algunos de esos componentes intermedios no necesitan esos datos.
+
+### **4. Explicar el propósito de useReducer en React y cómo se diferencia de useState.**
+
+**Propósito de useReducer:**
+
+Cuando el estado de un componente es más complejo y tiene múltiples subvalores o se requiere una lógica más avanzada para gestionar los cambios de estado, useReducer se vuelve útil. Para casos donde la lógica de cambio de estado implica múltiples transiciones y estados, useReducer puede hacer que el código sea más claro y legible al separar la lógica de cambio de estado en un solo lugar.
+
+**Diferencias con useState:**
+
+- UseState es útil para manejar estados simples, pero a medida que la lógica de cambio de estado se vuelve más compleja, useReducer puede ser preferible. useReducer permite definir una función reductora que toma el estado actual y una acción, y devuelve el nuevo estado.
+
+- Mientras que useState actualiza el estado directamente, useReducer delega la lógica de cambio de estado a una función separada llamada reductor. Esto facilita la gestión y comprensión de la lógica relacionada con el estado.
+
+- En algunos casos, useReducer puede ofrecer un rendimiento ligeramente mejor que useState, especialmente cuando el cálculo del nuevo estado depende del estado anterior. Esto se debe a que useReducer permite optimizaciones más avanzadas en algunos escenarios.
+
+### **5. Describe los argumentos que toma la función useReducer.**
+
+**Reducer (Función reductora):**
+- Propósito: El reductor es una función que especifica cómo el estado de un componente debería cambiar en respuesta a una acción. Esta función toma dos argumentos: el estado actual y una acción, y devuelve el nuevo estado.
+- Sintaxis: (state, action) => newState
+- Ejemplo:
+```bash
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'INCREMENT':
+      return { count: state.count + 1 };
+    case 'DECREMENT':
+      return { count: state.count - 1 };
+    default:
+      return state;
+  }
+};
+```
+
+**Estado Inicial (Initial State):**
+- Propósito: Este es el segundo argumento que recibe useReducer y representa el estado inicial del componente antes de que se realice cualquier acción.
+- Tipo: Puede ser de cualquier tipo, dependiendo de la estructura del estado que necesitas manejar en tu componente.
+- Ejemplo:
+```bash
+const initialState = { count: 0 };
+```
+
+**Función opcional de inicialización (Optional Initialization Function):**
+- Propósito: Este es un tercer argumento opcional que se puede proporcionar a useReducer. Es una función que acepta el estado inicial y devuelve el estado inicial después de realizar alguna lógica de inicialización.
+- Sintaxis: (initialState) => modifiedInitialState
+- Ejemplo:
+```bash
+const init = (initialCount) => {
+  return { count: initialCount * 2 };
+};
+```
+
+**Uso de useReducer:**
+```bash
+const [state, dispatch] = useReducer(reducer, initialState, init);
+```
+- reducer: La función reductora que especifica cómo el estado debe cambiar en respuesta a una acción.
+- initialState: El estado inicial del componente.
+- init (opcional): Una función opcional de inicialización que permite realizar lógica personalizada en el estado inicial.
+
+La función useReducer devuelve un array con dos elementos:
+
+- state: El estado actual del componente.
+- dispatch: Una función que se utiliza para despachar acciones al reductor, lo que provoca cambios en el estado según lo definido en la lógica del reductor.
+
+
+### **6. ¿Por qué es útil utilizar useReducer para gestionar el estado en aplicaciones más complejas?**
+
+En aplicaciones más complejas, el estado a menudo se vuelve más sofisticado y puede implicar lógica más compleja para gestionar cambios. useReducer facilita la gestión de esta lógica al permitir definir un reductor (reducer) separado que especifica cómo el estado debe cambiar en respuesta a diferentes acciones.
+
+### **7. ¿Cómo se puede utilizar React Context junto con useReducer para gestionar el estado global en una aplicación de React?**
+1. Crear el Contexto:
+Define tu contexto utilizando React.createContext(). Esto devolverá un objeto con dos componentes: Provider y Consumer
+```bash
+// En un archivo, por ejemplo, "AppContext.js"
+import React, { createContext, useReducer } from 'react';
+const AppContext = createContext();
+export default AppContext;
+```
+2. Definir el Reductor:
+Define el reductor que se utilizará para gestionar el estado global. Este reductor se encargará de manejar las acciones que modifican el estado.
+```bash
+// En el mismo archivo, "AppContext.js"
+const initialState = { /* tu estado inicial */ };
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'ACTION_TYPE_1':
+      // Manejar la acción 1 y actualizar el estado en consecuencia
+      return { ...state, /* nueva información */ };
+    // Otros casos para diferentes acciones
+    default:
+      return state;
+  }
+};
+export { AppContext, initialState, reducer };
+```
+3. Configurar el Provider:
+Utiliza el Provider del contexto para envolver tu aplicación y proporcionar el estado global a los componentes hijos.
+```bash
+// En tu componente principal, por ejemplo, "App.js"
+import React, { useReducer } from 'react';
+import { AppContext, initialState, reducer } from './AppContext';
+const App = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  return (
+    <AppContext.Provider value={{ state, dispatch }}>
+      {/* Tu aplicación y sus componentes hijos */}
+    </AppContext.Provider>
+  );
+};
+export default App;
+```
+4. Consumir el Contexto en Componentes Hijos:
+En los componentes donde necesitas acceder al estado global, utiliza el Consumer del contexto o el hook useContext para consumir el contexto y acceder al estado y la función de despacho.
+```bash
+// En cualquier componente hijo
+import React, { useContext } from 'react';
+import AppContext from './AppContext';
+const ExampleComponent = () => {
+  const { state, dispatch } = useContext(AppContext);
+  // Utiliza state y dispatch según sea necesario
+  // ...
+  return (
+    // Renderizado del componente
+  );
+};
+export default ExampleComponent;
+```
+### **8. ¿Por qué es importante tener un sistema de gestión de estado global en aplicaciones React más grandes?**
+
+La razón más importante para tener un sistema de gestión de estado global en aplicaciones React más grandes es evitar la prop drilling. La prop drilling se refiere a la necesidad de pasar props a través de múltiples niveles de componentes, lo cual puede volverse tedioso y complicado a medida que la aplicación crece en complejidad. Con un sistema de gestión de estado global, puedes acceder al estado desde cualquier componente sin tener que pasar manualmente las props a través de cada nivel de la jerarquía.
+
+### **9. Menciona al menos tres ventajas de utilizar una combinación de React Context y useReducer en comparación con el manejo de estado local en componentes.**
+
+-  Una combinación de React Context y useReducer permite gestionar el estado de manera global, eliminando la necesidad de pasar props a través de múltiples niveles de componentes (prop drilling). 
+
+- Al utilizar useReducer, la lógica de cambio de estado se centraliza en una función reductora. Esta función define cómo el estado debe cambiar en respuesta a diferentes acciones. Al combinarla con React Context, puedes acceder a esta lógica desde cualquier componente conectado al contexto. 
+
+- React Context proporciona un mecanismo para compartir el estado global entre componentes sin importar la relación entre ellos en la jerarquía de componentes. useReducer facilita la gestión de cambios en este estado. Esto simplifica el acceso y la actualización del estado global desde cualquier componente conectado al contexto, sin necesidad de pasar datos a través de props. 
+
+### **10. ¿En qué situaciones podría ser beneficioso migrar de un enfoque de manejo de estado local a un enfoque de estado global utilizando React Context y useReducer?**
+
+- Compartir estado entre componentes profundos: Si tiene varios componentes anidados y necesita compartir estado entre ellos sin pasar propiedades a través de múltiples niveles, el uso de un estado global puede simplificar la comunicación entre componentes.
+- Reducción de la prop drilling: Evitar pasar props a través de múltiples capas de componentes (prop drilling) puede mejorar la legibilidad y mantenimiento del código. Usar un estado global con React Context puede ayudar a evitar este problema.
+- Gestión centralizada del estado: Cuando la gestión del estado se vuelve compleja y difícil de rastrear, tener un estado global permite centralizar la lógica del estado en un solo lugar, facilitando la comprensión y el mantenimiento del código.
+- Manejo de múltiples fuentes de datos: Si su aplicación necesita acceder y manejar múltiples fuentes de datos desde diferentes partes de la interfaz de usuario, tener un estado global puede facilitar la coordinación y la gestión de esos datos.
+- Mejora del rendimiento: En algunos casos, mover el estado a un contexto global puede mejorar el rendimiento, ya que puede evitar la necesidad de renderizaciones innecesarias al actualizar el estado en componentes que no están directamente relacionados.
+- Implementación de lógica de acciones complejas: Cuando las acciones que afectan al estado son complejas y necesitan ser manejadas de manera más estructurada, useReducer proporciona una manera de encapsular la lógica de las acciones en un solo lugar.
+- Pruebas unitarias más sencillas: La gestión del estado global a través de useReducer puede facilitar las pruebas unitarias, ya que puede probar la lógica del estado de manera más aislada al tener un solo lugar donde ocurren las actualizaciones de estado.
+- Integración con herramientas de desarrollo: El uso de un estado global con useReducer puede facilitar la integración con herramientas de desarrollo como React DevTools, lo que facilita el seguimiento y la depuración del estado de la aplicación.
+
