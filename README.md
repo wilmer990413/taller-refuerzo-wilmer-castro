@@ -326,7 +326,7 @@ Para desplegar una aplicacion con GhPages, lo que se tiene que hacer es:
 
 ```bash
 "predeploy": "npm run build",
-"deploy": "gh pages -d dist",
+"deploy": "gh-pages -d dist",
 ```
 
 2. En el mismo archivo y en la misma seccion anterior se modifica en la parte de "scripts" la linea de "build" por la siguiente:
