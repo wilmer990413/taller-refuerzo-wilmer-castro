@@ -16,6 +16,9 @@ const Navbar = () => {
         <li>
           <Link to="/taller-refuerzo-wilmer-castro/misproductos">Mis Productos</Link>
         </li>
+        <li>
+          <Link to="/taller-refuerzo-wilmer-castro/miContadorUseReducer">Mi Contador Con UseReducer</Link>
+        </li>
       </ul>
     </nav>
     <Outlet/>

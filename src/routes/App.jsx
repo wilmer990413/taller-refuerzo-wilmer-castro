@@ -4,6 +4,8 @@ import MiContador from "../pages/MiContador";
 import MisProductos from "../pages/misProductos/MisProductos";
 import DetalleProducto from "../pages/DetalleProducto";
 import Navbar from "../components/navBar/NavBar";
+import MiContadorConUseReducer from "../pages/MiContadorConUseReducer";
+import { CounterProvider } from "../data/CounterContext";
 
 function App() {
   return (
@@ -14,6 +16,7 @@ function App() {
             <Route path="/taller-refuerzo-wilmer-castro/micomponente" element={<MiComponente />}></Route>
             <Route path="/taller-refuerzo-wilmer-castro/micontador" element={<MiContador />}></Route>
             <Route path="/taller-refuerzo-wilmer-castro/misproductos" element={<MisProductos />}></Route>
+            <Route path="/taller-refuerzo-wilmer-castro/miContadorUseReducer" element={<CounterProvider><MiContadorConUseReducer /></CounterProvider>}></Route>
             <Route path="/taller-refuerzo-wilmer-castro/misproductos/:id" element={<DetalleProducto />} />
           </Route>
         </Routes>
