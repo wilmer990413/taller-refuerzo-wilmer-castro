@@ -1,0 +1,25 @@
+nav {
+    background: #333;
+    padding: 10px;
+    color: white;
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+}
+
+li {
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+a:hover {
+    border-bottom: 2px solid white;
+    padding-bottom: 2px;
+}
