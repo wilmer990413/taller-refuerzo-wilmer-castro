@@ -4,11 +4,9 @@ import Boton from '../components/Boton'
 function MiContador() {
     const [contador, setContador] = useState(0);
     const incrementarContador = () => {
-        console.log("+");
         setContador(contador + 1);
     };
     const decrementarContador = () => {
-        console.log("-");
         setContador(contador - 1);
     };
     return (

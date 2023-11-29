@@ -39,7 +39,6 @@ function MisProductos() {
                 );
             }
             if (ratingSeleccionado !== '') {
-                console.log('ratingSeleccionado',ratingSeleccionado);
                 if(parseInt(ratingSeleccionado-1) === 0 ){
                     productosFiltradosTemp = productosFiltradosTemp.filter(producto =>
                         producto.rating >= parseInt(ratingSeleccionado-1) && producto.rating <= parseInt(ratingSeleccionado)
